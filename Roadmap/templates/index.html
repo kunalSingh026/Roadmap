@@ -28,7 +28,11 @@
         </ul>
       </div>
       <div class="nav-right">
-        <a href="#profile" class="nav-button">Login / Profile</a>
+        {% if user.is_authenticated %}
+  <a href="{% url 'logout' %}" class="nav-button">Logout</a>
+{% else %}
+  <a href="{% url 'login' %}" class="nav-button">Login / Profile</a>
+{% endif %}
       </div>
     </nav>
 
