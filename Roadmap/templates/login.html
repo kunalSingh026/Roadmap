@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Omnix - Optimized for Thought, Built for Action</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="grid-overlay"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar-wrapper">
+      <div class="nav-left">
+        <div class="logo">
+          <div class="logo-icon">O</div>
+          Omnix
+        </div>
+      </div>
+      <div class="nav-center">
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="#home">Home</a></li>
+          <li class="nav-item"><a href="#roadmaps">My Roadmaps</a></li>
+          <li class="nav-item"><a href="#dashboard">Dashboard</a></li>
+          <li class="nav-item"><a href="#help">Help</a></li>
+        </ul>
+      </div>
+      <div class="nav-right">
+        <a href="#profile" class="nav-button">Login / Profile</a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="discover-badge">Discover all new features →</div>
+      <h1 class="hero-title">Optimized for Thought<br />Built for Action</h1>
+      <p class="hero-subtitle">
+        Think smarter and act faster, from idea to execution in seconds.
+      </p>
+
+      <div class="command-interface">
+        <div class="command-input-container">
+          <div class="input-icon">⚡</div>
+          <textarea
+            class="command-input"
+            placeholder="Ask for anything or use a command"
+          ></textarea>
+          <div class="keyboard-hint">⌘J</div>
+        </div>
+        <div class="action-buttons">
+          <div class="action-left">
+            <a href="#" class="action-btn">📝 Marketing site redesign</a>
+            <a href="#" class="action-btn">📄 Create new document</a>
+          </div>
+          <button class="generate-btn">Generate</button>
+        </div>
+      </div>
+
+      <div class="trusted-section">
+        <div class="trusted-text">Trusted by</div>
+        <div class="trusted-logos">
+          <div class="trusted-logo">
+            <div class="logo-square"></div>
+            ATLASSIAN
+          </div>
+          <div class="trusted-logo">
+            <div class="logo-square"></div>
+            Notion
+          </div>
+          <div class="trusted-logo">
+            <div class="logo-square"></div>
+            Linear
+          </div>
+          <div class="trusted-logo">
+            <div class="logo-square"></div>
+            GitHub
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="{% static 'js/script.js' %}"></script>
+  </body>
+</html>
