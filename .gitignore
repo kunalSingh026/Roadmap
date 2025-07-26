@@ -1,0 +1,17 @@
+_pycache_/
+*.py[cod]
+*.sqlite3
+*.env
+.env/
+venv/
+.env/
+*.log
+/media/
+/staticfiles/
+.DS_Store
+
+# Virtual environment ignores (adjust if you use conda, pipenv, etc.)
+myenv/       # Replace with your virtualenv name
+.env/
+venv/
+env/
