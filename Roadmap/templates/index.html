@@ -6,6 +6,361 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Roadmap Genie</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* Search Container Styles */
+      .search-container {
+        max-width: 700px;
+        margin: 40px auto;
+        position: relative;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 18px 30px;
+        border-radius: 50px;
+        border: none;
+        font-size: 18px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        color: white;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .search-button {
+        position: absolute;
+        right: 8px;
+        top: 8px;
+        background: linear-gradient(90deg, #2563eb, #4f46e5);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 10px 30px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .search-button:hover {
+        background: linear-gradient(90deg, #1d4ed8, #4338ca);
+        transform: translateY(-2px);
+      }
+
+      /* Roadmap Section Styles */
+      .roadmap-section {
+        display: none;
+        padding: 40px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-bottom: 80px;
+      }
+
+      .glass-card {
+        margin-top: 10%;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        margin-bottom: 24px;
+      }
+
+      .roadmap-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+
+      .roadmap-title {
+        font-size: 28px;
+        font-weight: 600;
+        background: linear-gradient(90deg, #2563eb, #4f46e5);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin: 0;
+      }
+
+      .progress-container {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .progress-text {
+        font-weight: 500;
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .progress-bar {
+        width: 200px;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #2563eb, #4f46e5);
+        width: 0%;
+        transition: width 0.5s ease;
+      }
+
+      .milestones {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-height: 60vh;
+        overflow-y: auto;
+        padding-right: 10px;
+      }
+
+      /* Custom scrollbar */
+      .milestones::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .milestones::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+      }
+
+      .milestones::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+      }
+
+      .milestones::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+
+      .milestone {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 20px;
+        transition: all 0.3s ease;
+        display: flex;
+      }
+
+      .milestone:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+
+      /* Checkbox Styles */
+      .milestone-checkbox {
+        position: relative;
+        margin-right: 15px;
+        min-width: 22px;
+        height: 22px;
+        z-index: 1;
+      }
+
+      .milestone-checkbox input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
+
+      .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 22px;
+        width: 22px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        transition: all 0.3s;
+      }
+
+      .milestone-checkbox:hover .checkmark {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .milestone-checkbox input:checked ~ .checkmark {
+        background-color: #4f46e5;
+        border-color: #4f46e5;
+      }
+
+      .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+
+      .milestone-checkbox input:checked ~ .checkmark:after {
+        display: block;
+      }
+
+      .milestone-checkbox .checkmark:after {
+        left: 7px;
+        top: 3px;
+        width: 6px;
+        height: 12px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+      }
+
+      .milestone.completed {
+        background: rgba(16, 185, 129, 0.1);
+        border-color: rgba(16, 185, 129, 0.3);
+      }
+
+      .milestone.completed .milestone-title {
+        opacity: 0.8;
+      }
+
+      .milestone-content {
+        flex: 1;
+      }
+
+      .milestone-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      .milestone-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: white;
+        margin: 0;
+        transition: all 0.3s;
+      }
+
+      .milestone-week {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.7);
+        background: rgba(255, 255, 255, 0.1);
+        padding: 4px 12px;
+        border-radius: 20px;
+      }
+
+      .milestone-description {
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 15px;
+        line-height: 1.6;
+      }
+
+      .resources {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .resource {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        font-size: 14px;
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .resource:hover {
+        background: rgba(59, 130, 246, 0.5);
+        transform: translateY(-2px);
+      }
+
+      .resource i {
+        font-size: 16px;
+      }
+
+      /* Celebration Animation */
+      @keyframes confetti-fall {
+        0% {
+          transform: translateY(-100vh) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .confetti {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        background-color: #4f46e5;
+        opacity: 0;
+        z-index: 999;
+        animation: confetti-fall 3s ease-in-out forwards;
+      }
+
+      /* Clickable label for checkbox */
+      .checkbox-label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        cursor: pointer;
+        z-index: 2;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .roadmap-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 15px;
+        }
+
+        .progress-container {
+          width: 100%;
+        }
+
+        .progress-bar {
+          width: 100%;
+        }
+
+        .search-input {
+          padding: 15px 20px;
+        }
+
+        .search-button {
+          padding: 8px 20px;
+        }
+
+        .milestone {
+          flex-direction: column;
+        }
+
+        .milestone-checkbox {
+          margin-bottom: 15px;
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="background"></div>
@@ -34,48 +389,508 @@
 
     <!-- Main Content -->
     <main class="main-content">
-        <br><br><br>
-      <h1 class="hero-title">AI-Powered Learning Journey Custom</h1>
-      <h1 class="hero-title">Roadmaps.Real Results</h1>
-      <p class="hero-subtitle">
-        Think smarter and act faster, from idea to execution in seconds.
-      </p>
+      <section id="home-section">
+        <br /><br /><br />
+        <h1 class="hero-title">AI-Powered Learning Journey Custom</h1>
+        <h1 class="hero-title">Roadmaps.Real Results</h1>
+        <p class="hero-subtitle">
+          Think smarter and act faster, from idea to execution in seconds.
+        </p>
 
-      <div class="command-interface">
-        <div class="command-input-container">
-          <div class="input-icon">⚡</div>
-          <textarea
-            class="command-input"
-            placeholder="Generate Roadmap"
-          ></textarea>
-          <div class="keyboard-hint">⌘J</div>
+        <div class="search-container">
+          <input
+            type="text"
+            class="search-input"
+            id="goal-input"
+            placeholder="What do you want to learn? (e.g., 'Become a React Developer')"
+          />
+          <button class="search-button" id="generate-btn">
+            <i class="fas fa-bolt"></i> Generate
+          </button>
         </div>
-          <button class="generate-btn">Generate</button>
-        </div>
-      </div>
 
-      <div class="trusted-section">
-        <div class="trusted-text">Trusted by</div>
-        <div class="trusted-logos">
-          <div class="trusted-logo">
-            <div class="logo-square"></div>
-            ATLASSIAN
-          </div>
-          <div class="trusted-logo">
-            <div class="logo-square"></div>
-            Notion
-          </div>
-          <div class="trusted-logo">
-            <div class="logo-square"></div>
-            Linear
-          </div>
-          <div class="trusted-logo">
-            <div class="logo-square"></div>
-            GitHub
+        <div class="trusted-section">
+          <div class="trusted-text">Trusted by</div>
+          <div class="trusted-logos">
+            <div class="trusted-logo">
+              <div class="logo-square"></div>
+              ATLASSIAN
+            </div>
+            <div class="trusted-logo">
+              <div class="logo-square"></div>
+              Notion
+            </div>
+            <div class="trusted-logo">
+              <div class="logo-square"></div>
+              Linear
+            </div>
+            <div class="trusted-logo">
+              <div class="logo-square"></div>
+              GitHub
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      <!-- Roadmap Section -->
+      <section class="roadmap-section" id="roadmap-section">
+        <div class="glass-card">
+          <div class="roadmap-header">
+            <h2 class="roadmap-title" id="roadmap-title">
+              Your Learning Roadmap
+            </h2>
+            <div class="progress-container">
+              <span class="progress-text" id="progress-text">0% completed</span>
+              <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+              </div>
+            </div>
+          </div>
+          <div class="milestones" id="milestones-container">
+            <!-- Milestones will be added dynamically -->
+          </div>
+        </div>
+      </section>
     </main>
+
     <script src="{% static 'js/script.js' %}"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // DOM Elements
+        const generateBtn = document.getElementById("generate-btn");
+        const goalInput = document.getElementById("goal-input");
+        const roadmapSection = document.getElementById("roadmap-section");
+        const homeSection = document.getElementById("home-section");
+        const milestonesContainer = document.getElementById(
+          "milestones-container"
+        );
+        const roadmapTitle = document.getElementById("roadmap-title");
+        const progressText = document.getElementById("progress-text");
+        const progressFill = document.getElementById("progress-fill");
+
+        // App State
+        let currentRoadmap = null;
+        let completedMilestones =
+          JSON.parse(localStorage.getItem("completedMilestones")) || {};
+
+        // Sample Roadmap Data
+        const sampleRoadmaps = {
+          react: {
+            id: "react",
+            title: "React Developer Roadmap",
+            milestones: [
+              {
+                id: "react-1",
+                title: "Learn JavaScript Fundamentals",
+                week: "Week 1",
+                description:
+                  "Master the basics of JavaScript including variables, functions, and control flow. This foundation is crucial for understanding React concepts.",
+                resources: [
+                  {
+                    title: "JavaScript Crash Course",
+                    url: "https://www.youtube.com/embed/PkZNo7MFNFg",
+                    type: "video",
+                  },
+                  {
+                    title: "MDN JavaScript Guide",
+                    url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide",
+                    type: "article",
+                  },
+                  {
+                    title: "JavaScript Exercises",
+                    url: "https://javascript.info/",
+                    type: "practice",
+                  },
+                ],
+              },
+              {
+                id: "react-2",
+                title: "Understand ES6+ Features",
+                week: "Week 2",
+                description:
+                  "Learn modern JavaScript features like arrow functions, destructuring, modules, and template literals that are commonly used in React.",
+                resources: [
+                  {
+                    title: "ES6 Tutorial",
+                    url: "https://www.youtube.com/embed/NCwa_xi0Uuc",
+                    type: "video",
+                  },
+                  {
+                    title: "ES6 Cheatsheet",
+                    url: "https://devhints.io/es6",
+                    type: "reference",
+                  },
+                ],
+              },
+              {
+                id: "react-3",
+                title: "React Core Concepts",
+                week: "Week 3",
+                description:
+                  "Learn React components, props, state, and JSX syntax. Build your first components and understand the virtual DOM.",
+                resources: [
+                  {
+                    title: "React Official Tutorial",
+                    url: "https://reactjs.org/tutorial/tutorial.html",
+                    type: "interactive",
+                  },
+                  {
+                    title: "React Docs",
+                    url: "https://reactjs.org/docs/getting-started.html",
+                    type: "documentation",
+                  },
+                ],
+              },
+              {
+                id: "react-4",
+                title: "State Management",
+                week: "Week 4",
+                description:
+                  "Learn about React hooks, context API, and state management solutions like Redux or Zustand.",
+                resources: [
+                  {
+                    title: "React Hooks Guide",
+                    url: "https://reactjs.org/docs/hooks-intro.html",
+                    type: "documentation",
+                  },
+                ],
+              },
+              {
+                id: "react-5",
+                title: "Build a Complete Project",
+                week: "Week 5",
+                description:
+                  "Apply all your knowledge to build a complete React application with best practices.",
+                resources: [
+                  {
+                    title: "React Project Ideas",
+                    url: "https://www.freecodecamp.org/news/react-projects-for-beginners/",
+                    type: "article",
+                  },
+                ],
+              },
+            ],
+          },
+          python: {
+            id: "python",
+            title: "Python Developer Roadmap",
+            milestones: [
+              {
+                id: "python-1",
+                title: "Python Basics",
+                week: "Week 1",
+                description:
+                  "Learn Python syntax, variables, data types, and basic operations. Understand Python's unique features and indentation.",
+                resources: [
+                  {
+                    title: "Python Crash Course",
+                    url: "https://www.youtube.com/embed/rfscVS0vtbw",
+                    type: "video",
+                  },
+                  {
+                    title: "Python Official Docs",
+                    url: "https://docs.python.org/3/tutorial/",
+                    type: "documentation",
+                  },
+                ],
+              },
+              {
+                id: "python-2",
+                title: "Functions and Modules",
+                week: "Week 2",
+                description:
+                  "Learn to write functions, work with modules, and understand Python's package ecosystem.",
+                resources: [
+                  {
+                    title: "Python Functions Deep Dive",
+                    url: "https://realpython.com/defining-your-own-python-function/",
+                    type: "article",
+                  },
+                ],
+              },
+              {
+                id: "python-3",
+                title: "Object-Oriented Programming",
+                week: "Week 3",
+                description:
+                  "Master classes, objects, inheritance, and other OOP concepts in Python.",
+                resources: [
+                  {
+                    title: "Python OOP Tutorial",
+                    url: "https://realpython.com/python3-object-oriented-programming/",
+                    type: "article",
+                  },
+                ],
+              },
+            ],
+          },
+          javascript: {
+            id: "javascript",
+            title: "JavaScript Mastery Roadmap",
+            milestones: [
+              {
+                id: "js-1",
+                title: "Core JavaScript",
+                week: "Week 1",
+                description:
+                  "Master the fundamentals including variables, data types, operators, and control structures.",
+                resources: [
+                  {
+                    title: "JavaScript Basics",
+                    url: "https://javascript.info/first-steps",
+                    type: "tutorial",
+                  },
+                ],
+              },
+              {
+                id: "js-2",
+                title: "Functions and Scope",
+                week: "Week 2",
+                description:
+                  "Deep dive into functions, closures, and JavaScript's unique scoping rules.",
+                resources: [
+                  {
+                    title: "JavaScript Functions",
+                    url: "https://javascript.info/function-basics",
+                    type: "tutorial",
+                  },
+                ],
+              },
+            ],
+          },
+        };
+
+        // Event Listeners
+        generateBtn.addEventListener("click", generateRoadmap);
+        goalInput.addEventListener("keypress", function (e) {
+          if (e.key === "Enter") generateRoadmap();
+        });
+
+        // Functions
+        function generateRoadmap() {
+          const goal = goalInput.value.trim().toLowerCase();
+
+          if (!goal) {
+            alert("Please enter a learning goal");
+            return;
+          }
+
+          // Simple keyword detection
+          let roadmapKey = "react"; // default
+          if (goal.includes("python")) {
+            roadmapKey = "python";
+          } else if (goal.includes("javascript") || goal.includes("js")) {
+            roadmapKey = "javascript";
+          }
+
+          if (sampleRoadmaps[roadmapKey]) {
+            currentRoadmap = sampleRoadmaps[roadmapKey];
+            roadmapTitle.textContent = currentRoadmap.title;
+            renderMilestones(currentRoadmap.milestones);
+            homeSection.style.display = "none";
+            roadmapSection.style.display = "block";
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          } else {
+            alert(
+              'Our AI is generating a custom roadmap for you! Try "React Developer" or "Python Developer"'
+            );
+          }
+        }
+
+        function renderMilestones(milestones) {
+          milestonesContainer.innerHTML = "";
+
+          let completedCount = 0;
+          const roadmapId = currentRoadmap.id;
+
+          // Initialize roadmap in completed milestones if it doesn't exist
+          if (!completedMilestones[roadmapId]) {
+            completedMilestones[roadmapId] = [];
+            saveCompletedMilestones();
+          }
+
+          milestones.forEach((milestone) => {
+            const isCompleted = completedMilestones[roadmapId].includes(
+              milestone.id
+            );
+            if (isCompleted) completedCount++;
+
+            const milestoneEl = document.createElement("div");
+            milestoneEl.className = `milestone ${
+              isCompleted ? "completed" : ""
+            }`;
+            milestoneEl.innerHTML = `
+              <div class="milestone-checkbox">
+                <input type="checkbox" id="milestone-${milestone.id}" ${
+              isCompleted ? "checked" : ""
+            }>
+                <span class="checkmark"></span>
+                <label for="milestone-${
+                  milestone.id
+                }" class="checkbox-label"></label>
+              </div>
+              <div class="milestone-content">
+                <div class="milestone-header">
+                  <h3 class="milestone-title">${milestone.title}</h3>
+                  <span class="milestone-week">${milestone.week}</span>
+                </div>
+                <p class="milestone-description">${milestone.description}</p>
+                ${
+                  milestone.resources?.length
+                    ? `
+                <div class="resources">
+                  ${milestone.resources
+                    .map(
+                      (resource) => `
+                    <a href="${
+                      resource.url
+                    }" target="_blank" class="resource" data-type="${
+                        resource.type
+                      }">
+                      <i class="${getResourceIcon(resource.type)}"></i> ${
+                        resource.title
+                      }
+                    </a>
+                  `
+                    )
+                    .join("")}
+                </div>
+                `
+                    : ""
+                }
+              </div>
+            `;
+
+            milestonesContainer.appendChild(milestoneEl);
+
+            // Add event listener to checkbox
+            const checkbox = milestoneEl.querySelector(
+              `#milestone-${milestone.id}`
+            );
+            checkbox.addEventListener("change", (e) => {
+              toggleMilestoneCompletion(
+                roadmapId,
+                milestone.id,
+                e.target.checked
+              );
+            });
+          });
+
+          // Update progress
+          updateProgress(completedCount, milestones.length);
+
+          // Scroll to top of milestones
+          milestonesContainer.scrollTo(0, 0);
+        }
+
+        function toggleMilestoneCompletion(
+          roadmapId,
+          milestoneId,
+          isCompleted
+        ) {
+          if (isCompleted) {
+            if (!completedMilestones[roadmapId].includes(milestoneId)) {
+              completedMilestones[roadmapId].push(milestoneId);
+              saveCompletedMilestones();
+
+              // Add visual feedback
+              const milestoneEl = document
+                .querySelector(`#milestone-${milestoneId}`)
+                .closest(".milestone");
+              milestoneEl.classList.add("completed");
+
+              // Show confetti for first completion of this milestone
+              if (completedMilestones[roadmapId].length === 1) {
+                showConfetti();
+              }
+            }
+          } else {
+            completedMilestones[roadmapId] = completedMilestones[
+              roadmapId
+            ].filter((id) => id !== milestoneId);
+            saveCompletedMilestones();
+
+            // Remove visual feedback
+            const milestoneEl = document
+              .querySelector(`#milestone-${milestoneId}`)
+              .closest(".milestone");
+            milestoneEl.classList.remove("completed");
+          }
+
+          // Update progress
+          const totalCount = currentRoadmap.milestones.length;
+          const completedCount = completedMilestones[roadmapId].length;
+          updateProgress(completedCount, totalCount);
+        }
+
+        function saveCompletedMilestones() {
+          localStorage.setItem(
+            "completedMilestones",
+            JSON.stringify(completedMilestones)
+          );
+        }
+
+        function updateProgress(completedCount, totalCount) {
+          const progressPercent = Math.round(
+            (completedCount / totalCount) * 100
+          );
+          progressText.textContent = `${progressPercent}% completed`;
+          progressFill.style.width = `${progressPercent}%`;
+
+          // Change color when complete
+          if (progressPercent === 100) {
+            progressFill.style.background =
+              "linear-gradient(90deg, #10b981, #34d399)";
+            showConfetti();
+          } else {
+            progressFill.style.background =
+              "linear-gradient(90deg, #2563eb, #4f46e5)";
+          }
+        }
+
+        function getResourceIcon(type) {
+          const icons = {
+            video: "fas fa-video",
+            article: "fas fa-newspaper",
+            documentation: "fas fa-book",
+            practice: "fas fa-code",
+            interactive: "fas fa-laptop-code",
+            reference: "fas fa-bookmark",
+          };
+          return icons[type] || "fas fa-link";
+        }
+
+        function showConfetti() {
+          // Create 50 confetti pieces
+          for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement("div");
+            confetti.className = "confetti";
+            confetti.style.left = Math.random() * 100 + "vw";
+            confetti.style.backgroundColor = getRandomColor();
+            confetti.style.width = Math.random() * 10 + 5 + "px";
+            confetti.style.height = Math.random() * 10 + 5 + "px";
+            confetti.style.animationDuration = Math.random() * 3 + 2 + "s";
+            confetti.style.animationDelay = Math.random() * 2 + "s";
+            document.body.appendChild(confetti);
+
+            // Remove after animation
+            setTimeout(() => {
+              confetti.remove();
+            }, 5000);
+          }
+        }
+
+        function getRandomColor() {
+          const colors = [
+            "#4f46e5",
+            "#2563eb",
+            "#10b981",
+            "#f59e0b",
+            "#ec4899",
+          ];
+          return colors[Math.floor(Math.random() * colors.length)];
+        }
+      });
+    </script>
   </body>
 </html>
