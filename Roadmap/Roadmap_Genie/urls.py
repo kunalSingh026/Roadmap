@@ -1,6 +1,8 @@
 from django.urls import path
-from . import views  # importing views from the current app
+from . import views
 
 urlpatterns = [
-    path('', views.home, name='home'),  # root of the app
+    path('', views.home, name='home'),
+    path('login/', views.login_view, name='login'),
+    path('signup/', views.signup_view, name='signup'),  # 👈 Added signup route
 ]

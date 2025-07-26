@@ -4,82 +4,59 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Omnix - Optimized for Thought, Built for Action</title>
+    <title>Omnix - Get Started</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   </head>
   <body>
     <div class="background"></div>
     <div class="grid-overlay"></div>
 
-    <!-- Navbar -->
-    <nav class="navbar-wrapper">
-      <div class="nav-left">
-        <div class="logo">
-          <div class="logo-icon">O</div>
-          Omnix
-        </div>
-      </div>
-      <div class="nav-center">
-        <ul class="nav-menu">
-          <li class="nav-item"><a href="#home">Home</a></li>
-          <li class="nav-item"><a href="#roadmaps">My Roadmaps</a></li>
-          <li class="nav-item"><a href="#dashboard">Dashboard</a></li>
-          <li class="nav-item"><a href="#help">Help</a></li>
-        </ul>
-      </div>
-      <div class="nav-right">
-        <a href="#profile" class="nav-button">Login / Profile</a>
-      </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="main-content">
-      <div class="discover-badge">Discover all new features →</div>
-      <h1 class="hero-title">Optimized for Thought<br />Built for Action</h1>
-      <p class="hero-subtitle">
-        Think smarter and act faster, from idea to execution in seconds.
-      </p>
-
-      <div class="command-interface">
-        <div class="command-input-container">
-          <div class="input-icon">⚡</div>
-          <textarea
-            class="command-input"
-            placeholder="Ask for anything or use a command"
-          ></textarea>
-          <div class="keyboard-hint">⌘J</div>
-        </div>
-        <div class="action-buttons">
-          <div class="action-left">
-            <a href="#" class="action-btn">📝 Marketing site redesign</a>
-            <a href="#" class="action-btn">📄 Create new document</a>
-          </div>
-          <button class="generate-btn">Generate</button>
+    <div class="container">
+      <div class="left-section">
+        <div class="left-content">
+          <h1>Transform your vision into strategic roadmaps.</h1>
         </div>
       </div>
 
-      <div class="trusted-section">
-        <div class="trusted-text">Trusted by</div>
-        <div class="trusted-logos">
-          <div class="trusted-logo">
-            <div class="logo-square"></div>
-            ATLASSIAN
-          </div>
-          <div class="trusted-logo">
-            <div class="logo-square"></div>
-            Notion
-          </div>
-          <div class="trusted-logo">
-            <div class="logo-square"></div>
-            Linear
-          </div>
-          <div class="trusted-logo">
-            <div class="logo-square"></div>
-            GitHub
-          </div>
+      <div class="right-section">
+        <div class="form-header">
+          <h2>Get Started</h2>
+          <p>Welcome to Omnix — Let's build together</p>
         </div>
+
+        <form>
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="you@omnix.ai"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Create Password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="••••••••"
+              required
+            />
+          </div>
+
+          <button type="submit" class="submit-button">Create Account</button>
+
+          <div class="login-link">
+            Already have an account? <a href="#">Log in</a>
+          </div>
+        </form>
       </div>
-    </main>
+    </div>
     <script src="{% static 'js/script.js' %}"></script>
   </body>
 </html>
