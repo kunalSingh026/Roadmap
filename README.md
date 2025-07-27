@@ -73,7 +73,8 @@ pip install -r requirements.txt
 # Run Django server
 python manage.py runserver
 
----
+
+```
 
 ## 💡 Project Overview
 
