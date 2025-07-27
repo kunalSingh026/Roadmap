@@ -161,3 +161,7 @@ The platform is structured into **three main layers**:
 - AI Personalized Learning GitHub Projects  
 - Google Gemini API Docs  
 - Research on Learning Analytics, Sustainable Web Architectures  
+
+
+### ✨ Google Gemini API
+![Landing Page](assets/img.jpg)
