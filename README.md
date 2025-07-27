@@ -40,7 +40,7 @@ Generate personalized learning paths with structured milestones and curated reso
 ### Installation
 bash
 # Clone repository
-git clone https://github.com/yourusername/roadmap-genie.git
+git clone (https://github.com/kunalSingh026/Roadmap.git)
 cd roadmap-genie
 
 # Set up virtual environment
@@ -84,11 +84,11 @@ plaintext
 Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📬 Contact
-**Project Link**: [https://github.com/yourusername/roadmap-genie](https://github.com/yourusername/roadmap-genie)
+**Project Link**: (https://github.com/kunalSingh026/Roadmap.git)
 
 ---
 
-Made with ❤ and ☕ by [Your Name](https://github.com/yourusername)
+Made with ❤ and ☕ by Bugs Slayer
 
 
 ### Key Sections to Customize:
