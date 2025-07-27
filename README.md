@@ -12,13 +12,13 @@ Generate personalized learning paths with structured milestones and curated reso
 ## 🖼️ Demo Screenshots
 
 ### 🔮 Landing Page
-![Landing Page](assets/Screenshot 2025-07-27 122238.png)
+![Landing Page](assets/Screenshot%202025-07-27%20122238.png)
 
 ### 🚀 Sign Up Page
-![Sign Up Page](/path/to/Screenshot%202025-07-27%20122303.png)
+![Sign Up Page](assets/Screenshot%202025-07-27%20122303.png)
 
 ### 🔐 Login Page
-![Login Page](/path/to/Screenshot%202025-07-27%20122403.png)
+![Login Page](assets/Screenshot%202025-07-27%20122403.png)
 
 ---
 
